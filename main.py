@@ -1,4 +1,4 @@
-import main_menu  # Import fungsi menu utama
+import main_menu
 
 if __name__ == "__main__":
-    main_menu.main_menu()  # Jalankan menu utama
+    main_menu.main_menu()  # Panggil fungsi menu utama

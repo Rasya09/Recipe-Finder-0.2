@@ -10,17 +10,21 @@ conn = mysql.connector.connect(
 
 cursor = conn.cursor()
 
-# Membuat tabel users jika belum ada, dengan kolom baru
+# Membuat tabel users jika belum ada, dengan kolom role menggunakan ENUM
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    no_hp VARCHAR(15) NOT NULL,
-    alamat TEXT NOT NULL
+    email VARCHAR(255) NOT NULL UNIQUE,
+    no_hp VARCHAR(15),
+    alamat TEXT,
+    role ENUM('admin', 'chef', 'user') NOT NULL,
+    UNIQUE (email)
 )
 ''')
 
 conn.commit()
 print("Tabel 'users' berhasil dibuat atau sudah ada.")
+cursor.close()
+conn.close()
