@@ -1,29 +1,32 @@
 import mysql.connector
 
-# Fungsi untuk menghapus resep
-def delete_recipe():
-    conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="rf"
-    )
-    cursor = conn.cursor()
+def delete_recipe(recipe_id):
+    try:
+        # Koneksi ke database
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database=''
+        )
+        cursor = connection.cursor()
 
-    recipe_id = input("Masukkan ID resep yang ingin dihapus: ")
-    cursor.execute("SELECT * FROM recipes WHERE id = %s", (recipe_id,))
-    recipe = cursor.fetchone()
+        # Menghapus data di tabel saved_recipes yang terkait dengan resep
+        cursor.execute("DELETE FROM saved_recipes WHERE recipe_id = %s", (recipe_id,))
+        print(f"Data resep dengan ID {recipe_id} telah dihapus dari daftar favorit.")
 
-    if recipe:
-        confirmation = input(f"Apakah Anda yakin ingin menghapus resep '{recipe[1]}'? (y/n): ")
-        if confirmation.lower() == 'y':
-            cursor.execute("DELETE FROM recipes WHERE id = %s", (recipe_id,))
-            conn.commit()
-            print("Resep berhasil dihapus!")
-        else:
-            print("Penghapusan resep dibatalkan.")
-    else:
-        print("Resep tidak ditemukan.")
+        # Menghapus resep dari tabel recipes
+        cursor.execute("DELETE FROM recipes WHERE id = %s", (recipe_id,))
+        print(f"Resep dengan ID {recipe_id} telah dihapus.")
 
-    cursor.close()
-    conn.close()
+        # Commit perubahan ke database
+        connection.commit()
+
+    except mysql.connector.Error as err:
+        print(f"Terjadi kesalahan: {err}")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()

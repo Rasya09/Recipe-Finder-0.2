@@ -52,9 +52,17 @@ def chef_menu(username):
         elif pilihan == '2':
             view_recipes()  # Fungsi untuk melihat daftar resep
         elif pilihan == '3':
-            edit_recipe()  # Fungsi untuk mengedit resep
+            recipe_id = input("Masukkan ID resep yang ingin diedit: ").strip()
+            try:
+                edit_recipe(int(recipe_id))  # Memanggil fungsi edit resep dengan ID resep
+            except ValueError:
+                print("ID resep tidak valid, silakan coba lagi.")
         elif pilihan == '4':
-            delete_recipe()  # Fungsi untuk menghapus resep
+            recipe_id = input("Masukkan ID resep yang ingin dihapus: ").strip()
+            try:
+                delete_recipe(int(recipe_id))  # Memanggil fungsi delete resep dengan ID resep
+            except ValueError:
+                print("ID resep tidak valid, silakan coba lagi.")
         elif pilihan == '5':
             save_recipe(username)  # Fungsi untuk menyimpan resep
         elif pilihan == '6':
