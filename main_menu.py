@@ -1,5 +1,8 @@
 from register import register_user
 from login import login_user
+from view_recipes import view_recipes
+from add_recipe import add_recipe
+from search_recipes import search_recipes
 import sys
 
 # Menu untuk user
@@ -7,12 +10,15 @@ def user_menu(username):
     while True:
         print(f"\n--- Selamat datang, {username} (User) ---")
         print("1. Lihat resep")
-        print("2. Keluar")
-        pilihan = input("Pilih opsi (1/2): ")
+        print("2. Cari resep berdasarkan bahan")
+        print("3. Keluar")
+        pilihan = input("Pilih opsi (1/2/3): ").strip()
 
         if pilihan == '1':
-            print("Fitur lihat resep belum tersedia.")
+            view_recipes()  # Fungsi untuk melihat daftar resep
         elif pilihan == '2':
+            search_recipes()  # Fungsi untuk mencari resep
+        elif pilihan == '3':
             print("Keluar dari akun user.")
             break
         else:
@@ -25,12 +31,12 @@ def chef_menu(username):
         print("1. Tambah resep")
         print("2. Lihat resep")
         print("3. Keluar")
-        pilihan = input("Pilih opsi (1/2/3): ")
+        pilihan = input("Pilih opsi (1/2/3): ").strip()
 
         if pilihan == '1':
-            print("Fitur tambah resep belum tersedia.")
+            add_recipe(username)  # Fungsi untuk menambahkan resep
         elif pilihan == '2':
-            print("Fitur lihat resep belum tersedia.")
+            view_recipes()  # Fungsi untuk melihat daftar resep
         elif pilihan == '3':
             print("Keluar dari akun chef.")
             break
@@ -44,12 +50,12 @@ def main_menu():
         print("1. Register")
         print("2. Login")
         print("3. Keluar")
-        pilihan = input("Pilih opsi (1/2/3): ")
+        pilihan = input("Pilih opsi (1/2/3): ").strip()
 
         if pilihan == '1':
-            register_user()
+            register_user()  # Fungsi untuk registrasi user baru
         elif pilihan == '2':
-            role, username = login_user()
+            role, username = login_user()  # Login dan mendapatkan role pengguna
             if role == 'user':
                 user_menu(username)
             elif role == 'chef':
