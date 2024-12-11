@@ -40,15 +40,42 @@ def add_recipe(username):
             categories = categories_map.get(categories_choice)
             if not categories:
                 print("Pilihan kategori tidak valid. Silakan coba lagi.")
+        
+        #Memasukkan bahan bahan
+        print("\nMasukkan bahan satu per satu.")
+        print("Ketik 'selesai' jika tidak ada bahan lagi yang ingin dimasukkan.")
+        ingredients_list = []
+        counter = 1
 
-        ingredients = input("Masukkan daftar bahan (pisahkan dengan koma): ")
-        instructions = input("Masukkan instruksi masak: ")
+        while True:
+            ingredients = input(f"{counter}. Masukkan daftar bahan: ")
+            if ingredients.lower() == "selesai":
+                break
+            ingredients_list.append(f"{counter}. {ingredients}")
+            counter+=1
+        
+        ingredients_str = "\n".join(ingredients_list)
+        
+        #Memasukkan instruksi memasak
+        print("\nMasukkan instruksi memasak.")
+        print("Ketik 'selesai' apabila langkah memasak sudah selesai.")
+        instructions_list=[]
+        counter = 1
+
+        while True:
+            instructions = input(f"{counter}. Masukkan instruksi memasak: ")
+            if instructions.lower() == "selesai":
+                break
+            instructions_list.append(f"{counter}. {instructions}")
+            counter += 1
+
+        instructions_str = "\n".join(instructions_list)
         cook_time = input("Masukkan waktu masak (dalam menit): ")
 
         # Memasukkan data ke tabel recipes
         cursor.execute(
             "INSERT INTO recipes (title, categories, ingredients, instructions, cook_time, created_by) VALUES (%s, %s, %s, %s, %s, %s)",
-            (title, categories, ingredients, instructions, cook_time, user_id[0])
+            (title, categories, ingredients_str, instructions_str, cook_time, user_id[0])
         )
         conn.commit()
         print("Resep berhasil ditambahkan!")
