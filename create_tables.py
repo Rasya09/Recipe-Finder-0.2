@@ -27,6 +27,7 @@ queries = [
     CREATE TABLE IF NOT EXISTS recipes (
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
+        categories ENUM('Makanan Berat', 'Makanan Pembuka', 'Makanan Penutup', 'Makanan Ringan', 'Minuman') NOT NULL,
         ingredients TEXT NOT NULL,
         instructions TEXT NOT NULL,
         cook_time INT NOT NULL,

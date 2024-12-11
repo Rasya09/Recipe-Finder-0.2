@@ -15,8 +15,9 @@ def edit_recipe():
     recipe = cursor.fetchone()
 
     if recipe:
-        print(f"Resep yang akan diedit: Judul: {recipe[1]}, Bahan: {recipe[2]}, Instruksi: {recipe[3]}")
+        print(f"Resep yang akan diedit: Judul: {recipe[1]}, categories: {recipe[2]}, Bahan: {recipe[3]}, Instruksi: {recipe[4]}")
         new_title = input("Masukkan judul baru (kosongkan untuk tidak mengubah): ")
+        new_categories = input("Masukkan categories baru(kosongkan untuk tidak mengubah): ")
         new_ingredients = input("Masukkan bahan baru (kosongkan untuk tidak mengubah): ")
         new_instructions = input("Masukkan instruksi baru (kosongkan untuk tidak mengubah): ")
         new_cook_time = input("Masukkan waktu masak baru (kosongkan untuk tidak mengubah): ")
@@ -24,6 +25,8 @@ def edit_recipe():
         # Update resep jika ada perubahan
         if new_title:
             cursor.execute("UPDATE recipes SET title = %s WHERE id = %s", (new_title, recipe_id))
+        if new_categories:
+            cursor.execute("UPDATE recipes SET categories = %s WHERE id = %s", (new_categories, recipe_id))
         if new_ingredients:
             cursor.execute("UPDATE recipes SET ingredients = %s WHERE id = %s", (new_ingredients, recipe_id))
         if new_instructions:

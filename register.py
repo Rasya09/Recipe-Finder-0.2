@@ -39,7 +39,7 @@ def register_user():
     try:
         cursor.execute(
             "INSERT INTO users (username, email, password, role) VALUES (%s, %s, %s, %s)",
-            (username, email, hashed_password, role)
+            (username, email, hashed_password,  role)
         )
         conn.commit()
         print("Registrasi berhasil!")
