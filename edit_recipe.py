@@ -1,7 +1,7 @@
 import mysql.connector
 
 # Fungsi untuk mengedit resep
-def edit_recipe():
+def edit_recipe(recipe_id):
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -10,7 +10,6 @@ def edit_recipe():
     )
     cursor = conn.cursor()
 
-    recipe_id = input("Masukkan ID resep yang ingin diedit: ")
     cursor.execute("SELECT * FROM recipes WHERE id = %s", (recipe_id,))
     recipe = cursor.fetchone()
 
