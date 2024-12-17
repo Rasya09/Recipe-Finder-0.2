@@ -11,17 +11,7 @@ def add_recipe(username):
     cursor = conn.cursor()
 
     try:
-        # Mendapatkan user ID berdasarkan username
-        cursor.execute("SELECT id FROM users WHERE username = %s", (username,))
-        user_id = cursor.fetchone()
-        if not user_id:
-            print("User tidak ditemukan.")
-            return
-
-        print("\n--- Tambah Resep ---")
-        title = input("Masukkan judul resep: ")
-        
-        # Menampilkan daftar kategori makanan
+                # Menampilkan daftar kategori makanan
         categories_map = {
             '1': "Makanan Berat",
             '2': "Makanan Pembuka",
@@ -40,6 +30,18 @@ def add_recipe(username):
             categories = categories_map.get(categories_choice)
             if not categories:
                 print("Pilihan kategori tidak valid. Silakan coba lagi.")
+
+
+        # Mendapatkan user ID berdasarkan username
+        cursor.execute("SELECT id FROM users WHERE username = %s", (username,))
+        user_id = cursor.fetchone()
+        if not user_id:
+            print("User tidak ditemukan.")
+            return
+
+        print("\n--- Tambah Resep ---")
+        title = input("Masukkan judul resep: ")
+        
         
         #Memasukkan bahan bahan
         print("\nMasukkan bahan satu per satu.")

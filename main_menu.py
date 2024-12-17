@@ -27,7 +27,7 @@ def user_menu(username):
         elif pilihan == '2':
             search_recipes()  # Fungsi untuk mencari resep
         elif pilihan == '3':
-            recipe_categories(username)  # Fungsi untuk mencari resep kategori
+            recipe_categories()  # Fungsi untuk mencari resep kategori
         elif pilihan == '4':
             save_recipe(username)  # Fungsi untuk menyimpan resep
         elif pilihan == '5':
